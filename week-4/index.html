@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    let globalId = 1;
+    let todoState = [];
+    let oldTodoState = [];
+
+    function addTodoToDom(newTodo) {
+      // console.log(oldTodoState)
+      const todoDiv = document.createElement("div");
+      todoDiv.innerHTML = `
+        <p>Title: ${newTodo.title}</p>
+        <p>Description: ${newTodo.description}</p>
+        <button onclick="removeTodoFromDom(${newTodo.id})">Remove</button>
+        <button onclick="updateTodo(${newTodo.id})">Update</button>
+      `;
+      document.getElementById("todos").appendChild(todoDiv);
+    }
+
+    function updateTodo(todoId){
+      // console.log(oldTodoState)
+       oldTodoState = JSON.parse(JSON.stringify(todoState));
+
+      const index = todoState.findIndex(todo => todo.id === todoId);
+      const title = prompt("enter the new title")
+      const description = prompt("enter the new Description")
+      if(index !== -1){
+        todoState[index].title = title;
+        todoState[index].description = description;
+        console.log(oldTodoState)
+        updateState(todoState)
+      }
+    }
+
+    function removeTodoFromDom(todoId) {
+        const index = todoState.findIndex(todo => todo.id === todoId);
+        if(index !== -1){
+          document.getElementById('todos').children[index].remove();
+          todoState.splice(index,1);
+          updateState(todoState)
+        }
+    }
+
+    function updateTodoInDom(oldTodo, newTodo) {
+        const index = oldTodoState.findIndex(todo => todo.id === newTodo.id);
+        let target = document.getElementById('todos').children[index];
+        target.innerHTML =  `
+        <p>Title: ${newTodo.title}</p>
+        <p>Description: ${newTodo.description}</p>
+        <button onclick="removeTodoFromDom(${newTodo.id})">Remove</button>
+        <button onclick="updateTodo(${newTodo.id})">Update</button>
+      `;
+    }
+
+    function updateState(newTodos) {
+     
+      // calculate the diff b/w newTodos and oldTodos.
+      // More specifically, find out what todos are - 
+      // 1. added
+      // 2. deleted
+      // 3. updated
+      console.log(oldTodoState)
+      const added = [];
+      const deleted = [];
+      const updated = [];
+      // calculate these 3 arrays
+      // call addTodo, removeTodo, updateTodo functions on each of the
+      // elements
+      // console.log(newTodos)
+      // console.log(oldTodoState)
+      if(todoState.length > oldTodoState.length){
+        added.push(todoState[todoState.length - 1])
+        addTodoToDom(todoState[todoState.length - 1])
+      }else if(todoState.length === oldTodoState.length){
+        
+        newTodos.forEach(todos => {
+          const index = oldTodoState.findIndex(todo=> todo.id === todos.id)
+          if(index !== -1){  
+            if(oldTodoState[index].title !== todos.title || oldTodoState[index].description !== todos.description){
+              // console.log("hello")
+              updated.push(todos);
+              updateTodoInDom(oldTodoState[index], todos)
+            }
+          }
+        });
+      }
+      else{
+ 
+        oldTodoState.forEach(oldTodo => {
+          const index = newTodos.findIndex(todo=> todo.id === oldTodo.id)
+          
+          if(index === -1){
+            deleted.push(oldTodo)
+          }
+            // console.log(oldTodoState[index])
+        });
+      }
+      oldTodoState = newTodos.slice();
+    }
+
+    function addTodo() {
+      // console.log(oldTodoState)
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      todoState.push({
+        title: title,
+        description: description,
+        id: globalId++,
+      })
+      updateState(todoState);
+    }
+  </script>
+</head>
+
+<body>
+  <input type="text" id="title" placeholder="Todo title"></input> <br /><br />
+  <input type="text" id="description" placeholder="Todo description"></input> <br /><br />
+  <button onclick="addTodo()">Add todo</button>
+  <br /> <br />
+
+  <div id="todos">
+
+  </div>
+</body>
+
+</html>

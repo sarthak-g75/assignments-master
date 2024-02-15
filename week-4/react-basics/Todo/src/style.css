@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Sarina&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+   
+}
+body{
+    /* background: #485563;  
+    background: -webkit-linear-gradient(to left, #29323c, #485563);  
+    background: linear-gradient(to left, #29323c, #485563); 
+     */
+     background-color: rgba(0, 0, 0, 0.918);
+}
+.time,.day{
+    font-size: 20px;
+}
+.day{
+    color: orange;
+}
+.time{
+    color: white;
+}
+.timeDay{
+   display: flex;
+   justify-content: end;
+   margin: 5px 10px;
+   font-family: 'Lobster', cursive;
+}
+.greeting{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    margin: 50px 0 0 0 ;
+    font-family: 'Lobster', cursive;
+    font-weight: lighter;
+}
+.name{
+    color: orange;
+}
+
+.input{
+    margin: 50px 0 50px 0 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text_input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 10px;
+    background: white;
+    width: 20vw;
+    height: 5vh;
+}
+.task_input{
+    font-family: 'Lobster', cursive;
+    border: none;
+    height: 4vh;
+    width: 15vw;
+    font-size: 2.5vh;
+    outline: 0;
+}
+
+.fa-plus{
+    color: black;
+    font-size: 2.5vh;
+    cursor: pointer;
+}
+.eachElement{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+.element{
+    color: white;
+    background: #5128D6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: white; */
+    width: 30vw;
+    height: 4vh;
+    border-radius: 10px;
+    padding: 5px 20px;
+}
+.task{
+    /* font-family: 'Lobster', cursive; */
+    font-size: 2.5vh;
+}
+.sidebar{
+display: flex;
+gap: 20px;
+}
+.fa-edit,.fa-trash-alt{
+    font-size: 2vh;
+    cursor: pointer;
+}
+
+.element:hover{
+    background: whitesmoke;
+    color: black;
+}
+.fa-trash-alt:hover{
+    color: tomato;
+}
+.fa-edit:hover{
+    color: green;
+}
+.fa-plus:hover{
+    color: lightsteelblue;
+}
+
+.nameinput{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 100px 0;
+    
+}
+.nametext{
+    /* font-family: 'Lobster', cursive;  */
+    color: black;
+    height: 3vh;
+    padding: 0 10px;
+    border: none;
+    outline: 0;
+    border-radius: 5px;
+    font-size: 2vh;
+}
+.namebtn{
+    /* font-family: 'Lobster', cursive;  */
+    height: 3vh;
+    width: max-content;
+    padding: 0 5px;
+    font-size: 2vh;
+    border: none;
+    border-radius: 5px;
+
+}
+.nameoutput{
+    font-family: 'Lobster', cursive; 
+    text-align: center;
+    color: white;
+    font-size: 70px;
+    margin: 20px 0 100px 0;
+    font-weight: lighter;
+}
