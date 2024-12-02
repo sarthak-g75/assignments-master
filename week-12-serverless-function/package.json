@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "prisma": "^6.0.0",
+    "wrangler": "^3.91.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.0.0",
+    "@prisma/extension-accelerate": "^1.2.1"
+  }
+}
