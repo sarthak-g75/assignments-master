@@ -1,12 +1,27 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Blog from './pages/Blog'
-
+import Navbar from './components/Navbar'
+import LandingPage from './pages/LandingPage'
+import Footer from './components/Footer'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import AllBlogs from './pages/AllBlogs'
 function App() {
   return (
     <>
+      <Navbar />
+      <ToastContainer />
       <Routes>
+        <Route
+          path='/'
+          element={<LandingPage />}
+        />
+        <Route
+          path='/all-blogs'
+          element={<AllBlogs />}
+        />
         <Route
           path='/signup'
           element={<Signup />}
@@ -20,6 +35,7 @@ function App() {
           element={<Blog />}
         />
       </Routes>
+      <Footer />
     </>
   )
 }
