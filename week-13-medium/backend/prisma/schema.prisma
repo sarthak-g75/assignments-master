@@ -27,6 +27,7 @@ model Post {
   content   String
   published Boolean
   authorId  String
+  image     String?
   author    User     @relation(fields: [authorId], references: [id])
   createdAt DateTime @default(now())
 }

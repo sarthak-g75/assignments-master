@@ -1,5 +1,10 @@
+import Skeleton from '../components/Skeleton'
 const AllBlogs = () => {
-  return <div>AllBlogs</div>
+  return (
+    <div>
+      <Skeleton />
+    </div>
+  )
 }
 
 export default AllBlogs
