@@ -12,6 +12,7 @@
   "dependencies": {
     "@sarthak78/medium-common": "^1.0.0",
     "axios": "^1.7.9",
+    "browser-image-compression": "^2.0.2",
     "firebase": "^11.0.2",
     "framer-motion": "^11.13.1",
     "react": "^18.3.1",

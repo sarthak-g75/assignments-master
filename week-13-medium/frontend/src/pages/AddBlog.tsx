@@ -1,4 +1,26 @@
+import ImageUploader from '../components/ImageUploader'
+import { useState } from 'react'
+export interface Blog {
+  title: string
+  content: string
+  image: string
+}
 const AddBlog = () => {
+  const [blog, setBlog] = useState<Blog>({
+    title: '',
+    content: '',
+    image: '',
+  })
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    setBlog((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }))
+  }
+
   return (
     <section className='min-h-[84vh] flex items-center justify-center bg-gray-50'>
       <form className='w-full max-w-lg p-6 space-y-6 bg-white rounded-lg shadow-md'>
@@ -15,6 +37,7 @@ const AddBlog = () => {
             Title
           </label>
           <input
+            onChange={handleChange}
             type='text'
             name='title'
             id='title'
@@ -23,6 +46,10 @@ const AddBlog = () => {
           />
         </div>
 
+        {/* Image Uploader */}
+        <div>
+          <ImageUploader setBlog={setBlog} />
+        </div>
         {/* Content */}
         <div className='space-y-2'>
           <label
@@ -32,6 +59,7 @@ const AddBlog = () => {
             Content
           </label>
           <textarea
+            onChange={handleChange}
             name='content'
             id='content'
             className='w-full h-40 px-4 py-2 border border-gray-300 rounded-lg shadow-sm resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none'
