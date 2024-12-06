@@ -23,6 +23,13 @@ const Navbar = () => {
         {user ? (
           <div className='flex gap-8'>
             <Link
+              to={'/add-blog'}
+              className='hover:underline'
+              // className='px-4 py-2 text-base font-medium text-gray-800 bg-white border-2 border-white rounded-md hover:bg-opacity-90 '
+            >
+              Add new
+            </Link>
+            <Link
               to={'/all-blogs'}
               className='hover:underline'
               // className='px-4 py-2 text-base font-medium text-gray-800 bg-white border-2 border-white rounded-md hover:bg-opacity-90 '

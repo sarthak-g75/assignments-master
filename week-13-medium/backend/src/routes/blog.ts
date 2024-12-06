@@ -8,7 +8,7 @@ export const blogRouter = new Hono<{
     userId: string
   }
 }>()
-import { sign, verify } from 'hono/jwt'
+import { verify } from 'hono/jwt'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 
@@ -54,6 +54,7 @@ blogRouter.post('/create-blog', async (c) => {
         content: body.content,
         authorId: userId,
         published: body.published || false,
+        image: body.image,
       },
     })
     return c.json({ message: 'Blog created', blog }, 200)
@@ -102,6 +103,14 @@ blogRouter.get('/get-blog/:id', async (c) => {
     where: {
       id: id,
     },
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
   })
   return c.json({ message: 'Blog retrieved successfully', blog }, 200)
 })
@@ -109,7 +118,55 @@ blogRouter.get('/all-blogs', async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate())
+  try {
+    const page = parseInt(c.req.query('page') || '1', 10)
+    const limit = 5
+    const skip = (page - 1) * limit
 
-  const blogs = await prisma.post.findMany({})
-  return c.json({ message: 'Blog retrieved successfully', blogs }, 200)
+    // Fetch total blog count for pagination meta
+    const totalBlogs = await prisma.post.count()
+    const blogs = await prisma.post.findMany({
+      skip,
+      take: limit,
+      orderBy: {
+        createdAt: 'desc', // Optional: sort blogs by creation date
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    })
+
+    const totalPages = Math.ceil(totalBlogs / limit)
+
+    return c.json(
+      {
+        message: 'Blogs retrieved successfully',
+
+        blogs,
+        pagination: {
+          currentPage: page,
+          totalPages,
+          totalBlogs,
+          limit,
+        },
+      },
+      200
+    )
+  } catch (error: any) {
+    console.error('Error fetching blogs:', error)
+    return c.json(
+      {
+        message: 'Failed to retrieve blogs',
+        error: error.message || 'An unexpected error occurred',
+      },
+      500
+    )
+  } finally {
+    await prisma.$disconnect()
+  }
 })

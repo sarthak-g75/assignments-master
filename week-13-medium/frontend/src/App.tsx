@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import AllBlogs from './pages/AllBlogs'
+import AddBlog from './pages/AddBlog'
 function App() {
   return (
     <>
@@ -29,6 +30,10 @@ function App() {
         <Route
           path='/signin'
           element={<Signin />}
+        />
+        <Route
+          path='/add-blog'
+          element={<AddBlog />}
         />
         <Route
           path='/blog/:id'
