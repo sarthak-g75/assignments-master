@@ -2,7 +2,7 @@ import BlogContentCardUsage from './BlogContentCardUsage'
 import AuthorSlateCardUsage from './AuthorSlateCardUsage'
 import BlogTitle from './BlogTitle'
 
-interface Blog {
+export interface Blog {
   id: string
   title: string
   content: string
@@ -24,7 +24,7 @@ const BlogPageContent = ({ blog }: { blog: Blog | null }) => {
         <div className='flex flex-col gap-10 lg:w-3/4'>
           <div className='flex items-center justify-center w-full rounded'>
             <img
-              className='object-cover w-full h-full'
+              className='object-cover w-full h-96'
               src={blog?.image}
               alt='Blog'
             />

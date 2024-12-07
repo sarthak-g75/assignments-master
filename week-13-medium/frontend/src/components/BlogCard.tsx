@@ -24,10 +24,12 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
         to={`/blog/${blog.id}`}
         className='p-6 space-y-8 md:space-y-0 md:space-x-8 md:flex md:items-start'
       >
-        <img
-          src={blog.image || image}
-          className='flex items-center justify-center object-cover h-48 rounded w-72 '
-        />
+        <div className=' lg:w-96'>
+          <img
+            src={blog.image || image}
+            className='flex items-center justify-center object-cover w-full h-48 rounded '
+          />
+        </div>
 
         <div className='flex flex-col w-full gap-2 py-2'>
           {/* Author Slate */}
@@ -38,11 +40,17 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           <div className='flex flex-col gap-1'>
             {/* Blog Title */}
             <div className='w-full '>
-              <BlogTitle title={blog.title} />
+              <BlogTitle
+                font='small'
+                title={blog.title}
+              />
             </div>
             {/* Blog Content */}
             <div className='w-full '>
-              <BlogContentCardUsage content={blog.content} />
+              <BlogContentCardUsage
+                content={blog.content}
+                text='short'
+              />
             </div>
           </div>
           {/* <div className='h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5'></div> */}

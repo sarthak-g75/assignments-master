@@ -1,10 +1,12 @@
 import ImageUploader from '../components/ImageUploader'
 import { useState } from 'react'
+import { promiseToast } from '../components/Notification'
 export interface Blog {
   title: string
   content: string
   image: string
 }
+import { useAddBlog } from '../hooks/useAddBlog'
 const AddBlog = () => {
   const [blog, setBlog] = useState<Blog>({
     title: '',
@@ -20,10 +22,23 @@ const AddBlog = () => {
       [name]: value,
     }))
   }
+  const { addBlog, loading } = useAddBlog()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    promiseToast(
+      addBlog(blog),
+      'Adding Blog',
+      'Blog Added',
+      'Failed to add blog'
+    )
+  }
 
   return (
     <section className='min-h-[84vh] flex items-center justify-center bg-gray-50'>
-      <form className='w-full max-w-lg p-6 space-y-6 bg-white rounded-lg shadow-md'>
+      <form
+        onSubmit={handleSubmit}
+        className='w-full max-w-lg p-6 space-y-6 bg-white rounded-lg shadow-md'
+      >
         <h2 className='text-2xl font-semibold text-center text-gray-700'>
           Add a New Blog
         </h2>
@@ -70,9 +85,13 @@ const AddBlog = () => {
         {/* Submit Button */}
         <button
           type='submit'
-          className='w-full py-2 font-semibold text-white transition duration-300 ease-in-out bg-blue-500 rounded-lg shadow-lg hover:bg-blue-600'
+          className={`w-full px-4 py-2 text-base font-medium text-white bg-gray-800 border-2 border-black rounded-md text-w hite ${
+            !loading &&
+            'hover:text-black hover:bg-white hover:border-opacity-80'
+          } border-opacity-90  ${loading ? 'cursor-not-allowed' : ''}`}
+          disabled={loading}
         >
-          Submit
+          {loading ? 'Adding Blog...' : 'Submit'}
         </button>
       </form>
     </section>

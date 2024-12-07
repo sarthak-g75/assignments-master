@@ -1,6 +1,8 @@
 const url = import.meta.env.VITE_API_URL
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { blogAtom } from '../store/atoms/BlogAtom'
+import { useRecoilState } from 'recoil'
 interface Blog {
   id: string
   title: string
@@ -15,6 +17,7 @@ interface Blog {
   createdAt: string
 }
 export const useFetchSingleBlog = (id: string) => {
+  const [singleBlog, setBlogAtom] = useRecoilState(blogAtom)
   const [blog, setBlog] = useState<Blog | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
@@ -30,7 +33,7 @@ export const useFetchSingleBlog = (id: string) => {
 
       if (response.status === 200) {
         const { blog: newBlog } = response.data
-
+        setBlogAtom(newBlog)
         setBlog(newBlog)
       } else {
         setError(true)

@@ -83,7 +83,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ setBlog }) => {
       )}
       <button
         onClick={handleUpload}
-        className='px-4 py-2 text-white bg-blue-500 rounded'
+        className='px-4 py-2 text-white bg-gray-800 border-2 border-black rounded-md hover:bg-opacity-90'
         disabled={uploading}
       >
         {uploading ? 'Uploading...' : 'Upload'}

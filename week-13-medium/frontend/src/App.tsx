@@ -9,35 +9,40 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import AllBlogs from './pages/AllBlogs'
 import AddBlog from './pages/AddBlog'
+import { ProtectedRoute, LoggedInRoute } from './ProtectedRoute'
 function App() {
   return (
     <>
       <Navbar />
       <ToastContainer />
       <Routes>
+        {/* Public Routes */}
         <Route
           path='/'
           element={<LandingPage />}
         />
-        <Route
-          path='/all-blogs'
-          element={<AllBlogs />}
-        />
+        {/* Authenticated Routes */}
         <Route
           path='/signup'
-          element={<Signup />}
+          element={<LoggedInRoute element={<Signup />} />}
         />
         <Route
           path='/signin'
-          element={<Signin />}
+          element={<LoggedInRoute element={<Signin />} />}
+        />
+
+        {/* Protected Routes */}
+        <Route
+          path='/blog/:id'
+          element={<ProtectedRoute element={<Blog />} />}
+        />
+        <Route
+          path='/all-blogs'
+          element={<ProtectedRoute element={<AllBlogs />} />}
         />
         <Route
           path='/add-blog'
-          element={<AddBlog />}
-        />
-        <Route
-          path='/blog/:id'
-          element={<Blog />}
+          element={<ProtectedRoute element={<AddBlog />} />}
         />
       </Routes>
       <Footer />
