@@ -6,7 +6,7 @@ import { blogAtom } from '../store/atoms/BlogAtom'
 import { useRecoilValue } from 'recoil'
 const Blog = () => {
   const { id } = useParams()
-  const { blog, loading, error } = useFetchSingleBlog(id as string)
+  const { blog, loading } = useFetchSingleBlog(id as string)
   const blogAtomValue = useRecoilValue(blogAtom)
   const blogCache = blogAtomValue?.id === id
   return (
